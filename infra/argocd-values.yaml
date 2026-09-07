@@ -1,0 +1,7 @@
+﻿# infra/argocd-values.yaml
+# Helm values voor de ArgoCD-installatie in de minikube-lab.
+# Voorlopig bewust leeg/sane-defaults: alleen aanpassen als er een concrete reden voor is.
+# Documenteer hier straks eventuele aanpassingen (bv. OIDC/Keycloak-koppeling).
+server:
+  service:
+    type: ClusterIP
