@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: no-prune-sync-options
+  namespace: argocd
+spec:
+  destination:
+    namespace: no-prune-sync-options
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    path: apps/guestbook-no-prune
+    repoURL: "https://github.com/calvinklemmer/argocd-lab.git"
+    targetRevision: master
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
