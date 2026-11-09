@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app-directory-approach
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/name: root-app-directory-approach
+spec:
+  destination:
+    namespace: argocd
+    server: "https://kubernetes.default.svc"
+  ignoreDifferences:
+    - group: argoproj.io
+      kind: Application
+      jsonPointers:
+        - /status
+  project: default
+  source:
+    path: argocd/app-of-apps/directory-of-apps
+    repoURL: "https://github.com/calvinklemmer/argocd-lab.git"
+    targetRevision: master
+    directory:
+      recurse: true
+  syncPolicy:
+    automated:
+      allowEmpty: true
+      selfHeal: true
+    syncOptions:
+      - allowEmpty=true
+      - CreateNamespace=true
